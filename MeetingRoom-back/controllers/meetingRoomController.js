@@ -1,10 +1,10 @@
-const meetingRoom = require('../models/meetingRoom');
+const { MeetingRoom } = require('../models/meetingRoom');
 
 exports.createMeetingRoom = async (req, res) => {
     try {
         const { name, capacity, equipments, availability } = req.body;
-        const meetingRoom = await meetingRoom.create({ name, capacity, equipments, availability});
-        res.status(201).json({ message: 'Meeting room created successfully', meetingRoom });
+        const newMeetingRoom = await MeetingRoom.create({ name, capacity, equipments, availability});
+        res.status(201).json({ message: 'Meeting room created successfully', newMeetingRoom });
     } catch (error) {
         res.status(400).json({ message: error.message });
     }

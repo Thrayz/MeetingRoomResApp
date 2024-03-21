@@ -8,5 +8,7 @@ const reservationSchema = new mongoose.Schema({
     endTime: {type: Date, required: true}
 });
 
-module.exports = mongoose.model('Reservation', reservationSchema);
+const Reservation = mongoose.model('Reservation', reservationSchema);
+
+module.exports = {Reservation, reservationSchema};
 

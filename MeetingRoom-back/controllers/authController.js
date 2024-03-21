@@ -1,11 +1,14 @@
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 const User = require('../models/User');
+require('dotenv').config();
+
 
 exports.register = async (req, res) => {
     try {
         const { name, email, password, role } = req.body;
-        const user = await User.create({ name, email, password, role });
+        const hashedPassword = await bcrypt.hash(password, 10);
+        const user = await User.create({ name, email, password: hashedPassword, role });
         res.status(201).json({ message: 'User created successfully', user });
     } catch (error) {
         res.status(400).json({ message: error.message });

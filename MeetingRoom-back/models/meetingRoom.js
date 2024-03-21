@@ -7,4 +7,5 @@ const meetingRoomSchema = new mongoose.Schema({
     availability: {type: Boolean,default: true}
 });
 
-module.exports = mongoose.model('MeetingRoom', meetingRoomSchema);
+const MeetingRoom = mongoose.model('MeetingRoom', meetingRoomSchema);
+module.exports = { MeetingRoom, meetingRoomSchema};

@@ -7,7 +7,7 @@ import { MeetingRoom } from '../models/MeetingRoom';
   providedIn: 'root'
 })
 export class MeetingRoomService {
-  private baseUrl = 'http://localhost:3000/api/meetingroom';
+  private baseUrl = 'http://localhost:3000/meetingRoom';
 
   constructor(private http: HttpClient) { }
 

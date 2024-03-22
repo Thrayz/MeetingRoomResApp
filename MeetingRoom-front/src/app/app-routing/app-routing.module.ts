@@ -6,8 +6,12 @@ import { ReservationUpdateComponent } from '../reservation-update/reservation-up
 import { MeetingRoomCreateComponent } from '../meeting-room-create/meeting-room-create.component';
 import { MeetingRoomsListComponent } from '../meeting-rooms-list/meeting-rooms-list.component';
 import { MeetingRoomUpdateComponent } from '../meeting-room-update/meeting-room-update.component';
+import { LoginComponent } from '../login/login.component';
+import { RegisterComponent } from '../register/register.component';
 
 const routes: Routes = [
+  { path: 'login', component: LoginComponent },
+  { path: 'register', component: RegisterComponent },
   { path: 'reservations/create', component: ReservationCreateComponent },
   { path: 'reservations/update/:id', component: ReservationUpdateComponent },
   { path: 'reservations', component: ReservationListComponent },

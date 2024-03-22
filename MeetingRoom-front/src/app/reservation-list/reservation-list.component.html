@@ -1,0 +1,20 @@
+<div class="container">
+    <h2>Reservation List</h2>
+    <ul class="list-group">
+      <li *ngFor="let reservation of reservations" class="list-group-item">
+        <div>User: {{ reservation.user }}</div>
+        <div>Meeting Room: {{ reservation.meetingRoom }}</div>
+        <div>Date: {{ reservation.reservationDate }}</div>
+        <div>Start Time: {{ reservation.startTime }}</div>
+        <div>End Time: {{ reservation.endTime }}</div>
+        <div class="btn-group mt-2" role="group" aria-label="Reservation Actions">
+          <button type="button" class="btn btn-primary mr-2" (click)="updateReservation(reservation._id)">Update</button>
+          <button type="button" class="btn btn-danger" (click)="deleteReservation(reservation._id)">Delete</button>
+        </div>
+      </li>
+    </ul>
+    <div class="mt-3">
+      <button type="button" class="btn btn-success" (click)="addReservation()">Add Reservation</button>
+    </div>
+  </div>
+  

@@ -1,4 +1,5 @@
 const express = require('express');
+const cors = require('cors');
 const dotenv = require('dotenv');
 dotenv.config();
 const mongoose = require('mongoose');
@@ -7,6 +8,14 @@ const mongoose = require('mongoose');
 
 const app = express();
 const port = 3000;
+
+
+const corsOptions = {
+    origin: 'http://localhost:4200',
+    optionsSuccessStatus: 200
+};
+app.use(cors(corsOptions));
+
 
 const reservationController = require('./controllers/reservationController');
 const meetingRoomController = require('./controllers/meetingRoomController');

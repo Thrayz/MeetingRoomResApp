@@ -233,14 +233,10 @@ exports.filterReservationsPaginated = async (req, res) => {
 exports.getReservationsByUserAndFilterPaginated = async (req, res) => {
     try {
         const { userId } = req.params;
-        const { meetingRoomId, reservationDate, startTime, endTime } = req.query;
+        const { meetingRoomId, reservationDate } = req.query;
         const filter = { user: userId };
         if (meetingRoomId) filter.meetingRoom = meetingRoomId;
         if (reservationDate) filter.reservationDate = reservationDate;
-        if (startTime && endTime) {
-            filter.startTime = { $lt: endTime };
-            filter.endTime = { $gt: startTime };
-        }
         const { page = 1, limit = 10 } = req.query;
         const reservations = await Reservation.find(filter)
             .limit(limit * 1)

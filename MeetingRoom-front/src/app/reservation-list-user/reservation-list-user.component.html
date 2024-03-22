@@ -1,18 +1,20 @@
-
 <div class="container d-flex justify-content-center align-items-center" style="height: 100vh; width: 100vw;">
-    <div class="card shadow-lg p-3 mb-5 bg-white rounded" style="width: 90%;">
-      <div class="card-body">
-        <h2 class="card-title text-center mb-4">Reservation List</h2>
+  <div class="card shadow-lg p-3 mb-5 bg-white rounded" style="width: 90%;">
+    <div class="card-body">
+      <h2 class="card-title text-center mb-4">Reservation List</h2>
+      <div class="input-group mb-3">
+          <select #meetingRoomSelect class="form-control">
+            <option value="">Select Meeting Room</option>
+            <option *ngFor="let room of meetingRooms" [value]="room._id">{{ room.name }}</option>
+          </select>
+        </div>
+
         <div class="input-group mb-3">
-            <input type="text" class="form-control" placeholder="Filter by meeting room" [value]="filter.meetingRoom" (input)="handleInput($event, 'meetingRoom')">
-          </div>
-          <div class="input-group mb-3">
-            <input type="date" class="form-control" placeholder="Filter by date" [value]="filter.date" (input)="handleInput($event, 'date')">
-          </div>
-          <div class="input-group mb-3">
-            <button type="button" class="btn btn-primary" (click)="fetchReservations(filter, page)">Filter</button>
-          </div>
-        <div class="table-responsive">
+          <input type="date" class="form-control" placeholder="Filter by date" #dateInput>
+        </div>
+        <div class="input-group mb-3">
+          <button type="button" class="btn btn-primary" (click)="filterReservations(meetingRoomSelect.value, dateInput.value)">Filter</button>
+        </div>
           <table class="table table-striped">
             <thead class="thead-dark">
               <tr>
@@ -56,6 +58,6 @@
             </li>
           </ul>
         </nav>
-      </div>
-    </div>
   </div>
+</div>
+

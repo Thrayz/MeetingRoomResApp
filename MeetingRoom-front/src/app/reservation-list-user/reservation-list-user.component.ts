@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Reservation } from '../models/Reservation';
 import { ReservationService } from '../services/reservation.service';
+import { MeetingRoomService } from '../services/meeting-room.service';
+import { MeetingRoom } from '../models/MeetingRoom';
 import { JwtService } from '../services/jwt.service';
 
 @Component({
@@ -12,15 +14,26 @@ import { JwtService } from '../services/jwt.service';
 export class ReservationListUserComponent implements OnInit {
   reservations: Reservation[] = [];
   userId!: string;
+  meetingRooms: MeetingRoom[] = [];
 
   constructor(
     private reservationService: ReservationService,
     private router: Router,
     private route: ActivatedRoute,
-    private jwtService: JwtService
+    private jwtService: JwtService,
+    private meetingRoomService: MeetingRoomService
   ) { }
 
   ngOnInit(): void {
+    this.meetingRoomService.getAllMeetingRooms().subscribe(
+      (meetingRooms: MeetingRoom[]) => {
+        this.meetingRooms = meetingRooms;
+      },
+      (error: any) => {
+        console.error('Error fetching meeting rooms:', error);
+      
+      }
+    );
     const token = localStorage.getItem('token');
     if (token) {
       this.userId = this.jwtService.decodeToken(token).id;
@@ -29,17 +42,23 @@ export class ReservationListUserComponent implements OnInit {
     this.fetchReservations();
   }
 
-filter: { meetingRoom?: string, date?: string, startTime?: string, endTime?: string } = {};
+filter: { meetingRoomId?: string, date?: string } = {};
 page = 1;
 limit = 1;
 
-fetchReservations(filter = {}, page = this.page): void {
+filterReservations(meetingRoomId: string, date: string): void {
+  const filter = {
+    meetingRoomId: meetingRoomId || undefined,
+    date: date || undefined
+  };
+  this.fetchReservations(filter);
+}
+
+fetchReservations(filter = {}, page = 1): void {
   console.log('filter:', filter);
   console.log('fetchReservations called with filter:', filter, 'and page:', page);
-  this.filter = filter;
-  this.page = page;
 
-  this.reservationService.getReservationsByUserFilter(this.userId, this.filter, this.page, this.limit).subscribe(
+  this.reservationService.getReservationsByUserFilter(this.userId, filter, page, this.limit).subscribe(
     (data: any) => {
       this.reservations = data.reservations;
     },
@@ -58,7 +77,7 @@ fetchReservations(filter = {}, page = this.page): void {
   }
 
   deleteReservation(reservationId: string): void {
-    this.reservationService. cancelReservation(reservationId).subscribe(
+    this.reservationService.cancelReservation(reservationId).subscribe(
       () => {
         this.fetchReservations();
       },

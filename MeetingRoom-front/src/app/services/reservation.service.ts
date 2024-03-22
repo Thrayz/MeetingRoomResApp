@@ -30,4 +30,10 @@ export class ReservationService {
   getReservation(reservationId: string): Observable<Reservation> {
     return this.http.get<Reservation>(`${this.baseUrl}/${reservationId}`);
   }
+
+  getReservationsByUserFilter(userId: string, filter = {}, page = 1, limit = 10): Observable<any> {
+    return this.http.get(`${this.baseUrl}/filter/${userId}`, {
+      params: { ...filter, page, limit }
+    });
+  }
 }

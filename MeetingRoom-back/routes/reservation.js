@@ -7,5 +7,6 @@ router.put('/:reservationId', reservationController.updateReservation);
 router.delete('/:reservationId', reservationController.cancelReservation);
 router.get('/', reservationController.getAllReservations);
 router.get('/:reservationId', reservationController.getReservation);
+router.get('/filter/:userId', reservationController.getReservationsByUserAndFilterPaginated);
 
 module.exports = router;

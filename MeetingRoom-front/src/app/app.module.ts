@@ -15,6 +15,7 @@ import { MeetingRoomCreateComponent } from './meeting-room-create/meeting-room-c
 import { MeetingRoomUpdateComponent } from './meeting-room-update/meeting-room-update.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
+import { ReservationListUserComponent } from './reservation-list-user/reservation-list-user.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { RegisterComponent } from './register/register.component';
     MeetingRoomCreateComponent,
     MeetingRoomUpdateComponent,
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    ReservationListUserComponent
   ],
   imports: [
     BrowserModule,

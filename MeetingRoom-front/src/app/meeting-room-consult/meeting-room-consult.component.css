@@ -1,0 +1,41 @@
+.container {
+    height: 100vh;
+    width: 100vw;
+    padding: 2rem;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    overflow-y: auto;
+    background-color: #f4f4f4;
+  }
+  
+  .room-info {
+    width: 80%;
+    background-color: #fff;
+    padding: 2rem;
+    margin-bottom: 2rem;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .room-info h2 {
+    margin-bottom: 1rem;
+  }
+  
+  .room-info p {
+    margin-bottom: 0.5rem;
+  }
+  
+  .calendar-container {
+    width: 80%;
+    background-color: #fff;
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .full-calendar {
+    width: 100%;
+  }

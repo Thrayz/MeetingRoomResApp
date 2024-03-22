@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, map } from 'rxjs';
 import { Reservation } from '../models/Reservation';
 
 @Injectable({
@@ -35,5 +35,18 @@ export class ReservationService {
     return this.http.get(`${this.baseUrl}/filter/${userId}`, {
       params: { ...filter, page, limit }
     });
+  }
+
+  getReservationsByMeetingRoom(id: string): Observable<any[]> {
+    return this.http.get<any[]>(`${this.baseUrl}/meeting-room/${id}`).pipe(
+      map((reservations: any[]) => reservations.map(reservation => {
+        return {
+          start: new Date(reservation.startTime),
+          end: new Date(reservation.endTime),
+          title: 'Reserved',
+          color: 'red'
+        };
+      }))
+    );
   }
 }

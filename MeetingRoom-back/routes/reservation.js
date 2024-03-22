@@ -8,5 +8,6 @@ router.delete('/:reservationId', reservationController.cancelReservation);
 router.get('/', reservationController.getAllReservations);
 router.get('/:reservationId', reservationController.getReservation);
 router.get('/filter/:userId', reservationController.getReservationsByUserAndFilterPaginated);
+router.get('/meeting-room/:meetingRoomId', reservationController.getReservationsByMeetingRoom);
 
 module.exports = router;

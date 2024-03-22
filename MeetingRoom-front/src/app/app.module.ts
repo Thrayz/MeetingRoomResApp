@@ -4,6 +4,7 @@ import { AppRoutingModule } from './app-routing/app-routing.module';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
+import { FullCalendarModule } from '@fullcalendar/angular'; 
 
 
 import { AppComponent } from './app.component';
@@ -16,6 +17,7 @@ import { MeetingRoomUpdateComponent } from './meeting-room-update/meeting-room-u
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { ReservationListUserComponent } from './reservation-list-user/reservation-list-user.component';
+import { MeetingRoomConsultComponent } from './meeting-room-consult/meeting-room-consult.component';
 
 @NgModule({
   declarations: [
@@ -28,14 +30,16 @@ import { ReservationListUserComponent } from './reservation-list-user/reservatio
     MeetingRoomUpdateComponent,
     LoginComponent,
     RegisterComponent,
-    ReservationListUserComponent
+    ReservationListUserComponent,
+    MeetingRoomConsultComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    FullCalendarModule
   ],
   providers: [],
   bootstrap: [AppComponent]

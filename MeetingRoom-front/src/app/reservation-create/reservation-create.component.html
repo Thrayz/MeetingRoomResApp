@@ -1,25 +1,29 @@
-<div class="container">
-  <h2>Create Reservation</h2>
-  <form [formGroup]="reservationForm" (ngSubmit)="submit()">
-    <div class="form-group">
-      <label for="meetingRoom">Meeting Room</label>
-      <select class="form-control" id="meetingRoom" formControlName="meetingRoom" required>
-        <option *ngFor="let room of meetingRooms" [value]="room._id">{{ room.name }}</option>
-      </select>
+<div class="container d-flex justify-content-center align-items-center vh-100">
+  <div class="card shadow-lg p-3 mb-5 bg-white rounded" style="max-width: 30rem;">
+    <div class="card-body">
+      <h2 class="card-title text-center mb-4">Create Reservation</h2>
+      <form [formGroup]="reservationForm" (ngSubmit)="submit()">
+        <div class="form-floating mb-3">
+          <select class="form-control" id="meetingRoom" formControlName="meetingRoom" required>
+            <option *ngFor="let room of meetingRooms" [value]="room._id">{{ room.name }}</option>
+          </select>
+          <label for="meetingRoom">Meeting Room</label>
+        </div>
+        <div class="form-floating mb-3">
+          <input type="datetime-local" class="form-control" id="reservationDate" formControlName="reservationDate" required>
+          <label for="reservationDate">Reservation Date</label>
+        </div>
+        <div class="form-floating mb-3">
+          <input type="datetime-local" class="form-control" id="startTime" formControlName="startTime" required>
+          <label for="startTime">Start Time</label>
+        </div>
+        <div class="form-floating mb-3">
+          <input type="datetime-local" class="form-control" id="endTime" formControlName="endTime" required>
+          <label for="endTime">End Time</label>
+        </div>
+        <button class="btn btn-primary btn-lg btn-block" type="submit">Submit</button>
+      </form>
+      <div *ngIf="ConflictError" class="alert alert-danger mt-3">{{ ConflictError }}</div> 
     </div>
-    <div class="form-group">
-      <label for="reservationDate">Reservation Date</label>
-      <input type="datetime-local" class="form-control" id="reservationDate" formControlName="reservationDate" required>
-    </div>
-    <div class="form-group">
-      <label for="startTime">Start Time</label>
-      <input type="datetime-local" class="form-control" id="startTime" formControlName="startTime" required>
-    </div>
-    <div class="form-group">
-      <label for="endTime">End Time</label>
-      <input type="datetime-local" class="form-control" id="endTime" formControlName="endTime" required>
-    </div>
-    <button type="submit" class="btn btn-primary">Submit</button>
-  </form>
-  <div *ngIf="ConflictError" class="alert alert-danger mt-3">{{ ConflictError }}</div> 
+  </div>
 </div>

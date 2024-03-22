@@ -5,6 +5,8 @@ import { Router } from '@angular/router';
 import { CalendarOptions } from '@fullcalendar/Core';
 import { ReservationService } from '../services/reservation.service';
 import dayGridPlugin from '@fullcalendar/daygrid';
+import Tooltip from 'tooltip.js'; 
+import * as $ from 'jquery';
 
 @Component({
   selector: 'app-meeting-room-consult',
@@ -16,7 +18,20 @@ export class MeetingRoomConsultComponent implements OnInit {
   calendarOptions: CalendarOptions = {
     initialView: 'dayGridMonth',
     plugins: [dayGridPlugin],
-    events: []
+    events: [],
+    displayEventTime: false,
+    eventMouseEnter: function(info) {
+      let tooltip = new Tooltip(info.el, {
+        title: info.event.title,
+        placement: 'top',
+        trigger: 'hover',
+        container: 'body'
+      });
+      tooltip.show();
+    },
+    eventMouseLeave: function(info) {
+      $('.tooltip').remove();
+    }
   };
   constructor(private meetingRoomService: MeetingRoomService,
     private router: Router,

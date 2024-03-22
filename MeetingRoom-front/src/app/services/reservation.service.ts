@@ -43,7 +43,7 @@ export class ReservationService {
         return {
           start: new Date(reservation.startTime),
           end: new Date(reservation.endTime),
-          title: 'Reserved',
+          title: `${new Date(reservation.startTime).toLocaleTimeString()} - ${new Date(reservation.endTime).toLocaleTimeString()}`,
           color: 'red'
         };
       }))

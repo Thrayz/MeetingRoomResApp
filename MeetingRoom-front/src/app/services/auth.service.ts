@@ -19,6 +19,18 @@ export class AuthService {
   }
 
   logout(): Observable<any> {
+    localStorage.removeItem('token');
     return this.http.post<any>(`${this.baseUrl}/logout`, {});
+
+  }
+
+  isAuthenticated(): boolean {
+    return !!localStorage.getItem('token');
+  }
+  isAdmin(): boolean {
+    return localStorage.getItem('role') === 'admin';
+  }
+  isUser(): boolean {
+    return localStorage.getItem('role') === 'user';
   }
 }

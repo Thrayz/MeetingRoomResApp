@@ -5,6 +5,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FullCalendarModule } from '@fullcalendar/angular'; 
+import { MatToolbarModule } from '@angular/material/toolbar';
 
 
 import { AppComponent } from './app.component';
@@ -18,6 +19,8 @@ import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { ReservationListUserComponent } from './reservation-list-user/reservation-list-user.component';
 import { MeetingRoomConsultComponent } from './meeting-room-consult/meeting-room-consult.component';
+import { HeaderComponent } from './header/header.component';
+import { FooterComponent } from './footer/footer.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +34,9 @@ import { MeetingRoomConsultComponent } from './meeting-room-consult/meeting-room
     LoginComponent,
     RegisterComponent,
     ReservationListUserComponent,
-    MeetingRoomConsultComponent
+    MeetingRoomConsultComponent,
+    HeaderComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule,
@@ -39,7 +44,8 @@ import { MeetingRoomConsultComponent } from './meeting-room-consult/meeting-room
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
-    FullCalendarModule
+    FullCalendarModule,
+    MatToolbarModule
   ],
   providers: [],
   bootstrap: [AppComponent]

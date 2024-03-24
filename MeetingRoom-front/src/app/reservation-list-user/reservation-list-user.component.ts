@@ -44,7 +44,7 @@ export class ReservationListUserComponent implements OnInit {
 
 filter: { meetingRoomId?: string, date?: string } = {};
 page = 1;
-limit = 1;
+limit = 5;
 
 filterReservations(meetingRoomId: string, date: string): void {
   const filter = {

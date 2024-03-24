@@ -1,4 +1,5 @@
 const { Reservation } = require('../models/Reservation');
+const { sendEmail } = require('../mailService/emailSender');
 
 exports.createReservation = async (req, res) => {
     try {
@@ -18,6 +19,15 @@ exports.createReservation = async (req, res) => {
         }
 
         const reservation = await Reservation.create({ user, meetingRoom, reservationDate, startTime, endTime });
+
+        const reservationDateFormatted = reservationDate.toLocaleDateString('en-GB');
+        const startTimeFormatted = startTime.toLocaleTimeString('en-US', { hour12: true });
+        const endTimeFormatted = endTime.toLocaleTimeString('en-US', { hour12: true });
+
+        const emailText = `Your reservation for the meeting room ${meetingRoom} on ${reservationDateFormatted} from ${startTimeFormatted} to ${endTimeFormatted} has been successfully created.`;
+
+        await sendEmail('Reservation Confirmation', emailText);
+
         res.status(201).json({ message: 'Reservation created successfully', reservation });
     } catch (error) {
         res.status(400).json({ message: error.message });
@@ -186,7 +196,7 @@ exports.getAllReservationsPaginated = async (req, res) => {
 exports.getReservationsByUserPaginated = async (req, res) => {
     try {
         const { userId } = req.params;
-        const { page = 1, limit = 10 } = req.query;
+        const { page = 1, limit = 3 } = req.query;
         const reservations = await Reservation.find({ user: userId })
             .limit(limit * 1)
             .skip((page - 1) * limit)
@@ -237,7 +247,7 @@ exports.getReservationsByUserAndFilterPaginated = async (req, res) => {
         const filter = { user: userId };
         if (meetingRoomId) filter.meetingRoom = meetingRoomId;
         if (reservationDate) filter.reservationDate = reservationDate;
-        const { page = 1, limit = 10 } = req.query;
+        const { page = 1, limit = 3 } = req.query;
         const reservations = await Reservation.find(filter)
             .limit(limit * 1)
             .skip((page - 1) * limit)
@@ -248,6 +258,7 @@ exports.getReservationsByUserAndFilterPaginated = async (req, res) => {
             totalPages: Math.ceil(count / limit),
             currentPage: page
         });
+    
     } catch (error) {
         res.status(400).json({ message: error.message });
     }

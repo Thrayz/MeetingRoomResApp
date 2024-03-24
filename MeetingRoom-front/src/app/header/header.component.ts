@@ -3,17 +3,7 @@ import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-header',
-  template: `
-    <nav class="header">
-      <a *ngIf="authService.isAuthenticated()" routerLink="/">Home</a>
-      <a *ngIf="authService.isAuthenticated()" routerLink="/reservationsByUser">Reservations</a>
-      <a *ngIf="authService.isAuthenticated()" routerLink="/meeting-rooms">Meeting Rooms</a>
-      <div class="spacer"></div>
-      <a *ngIf="!authService.isAuthenticated()" routerLink="/login">Login</a>
-      <a *ngIf="!authService.isAuthenticated()" routerLink="/register">Register</a>
-      <a *ngIf="authService.isAuthenticated()" (click)="authService.logout()">Logout</a>
-    </nav>
-  `,
+  templateUrl:'./header.component.html',
   styles: [`
   .header {
     display: flex;

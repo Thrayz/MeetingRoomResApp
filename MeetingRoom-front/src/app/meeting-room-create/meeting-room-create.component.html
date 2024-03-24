@@ -1,1 +1,33 @@
-<p>meeting-room-create works!</p>
+<div class="container d-flex justify-content-center align-items-center vh-100">
+    <div class="card shadow-lg p-3 mb-5 bg-white rounded" style="max-width: 30rem;">
+      <div class="card-body">
+        <h2 class="card-title text-center mb-4">Create Meeting Room</h2>
+        <form [formGroup]="meetingRoomForm" (ngSubmit)="createMeetingRoom()">
+          <div class="form-floating mb-3">
+            <input type="text" class="form-control" id="name" formControlName="name" required>
+            <label for="name">Name</label>
+          </div>
+          <div class="form-floating mb-3">
+            <input type="number" class="form-control" id="capacity" formControlName="capacity" required>
+            <label for="capacity">Capacity</label>
+          </div>
+          <div formArrayName="equipments" class="mb-3">
+            <label>Equipments:</label>
+            <div *ngFor="let equipment of equipments.controls; let i = index" class="input-group mb-3">
+              <input [formControlName]="i" placeholder="Enter equipment" class="form-control">
+              <div class="input-group-append">
+                <button type="button" (click)="removeEquipment(i)" class="btn btn-outline-secondary">Remove</button>
+              </div>
+            </div>
+            <button type="button"   (click)="addEquipment()" class="btn btn-primary">Add Equipment</button>
+          </div>
+          <div class="form-check mb-3">
+            <input type="checkbox" class="form-check-input" id="availability" formControlName="availability">
+            <label class="form-check-label" for="availability">Availability</label>
+          </div>
+          <input type="hidden" formControlName="user">
+          <button type="submit" [disabled]="meetingRoomForm.invalid" class="btn btn-primary btn-lg btn-block">Create Meeting Room</button>
+        </form>
+      </div>
+    </div>
+  </div>

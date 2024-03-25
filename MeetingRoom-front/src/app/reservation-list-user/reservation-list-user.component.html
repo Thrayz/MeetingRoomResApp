@@ -53,10 +53,10 @@
 <nav aria-label="Page navigation example" class="mt-3">
   <ul class="pagination justify-content-center">
     <li class="page-item" [class.disabled]="page <= 1">
-      <a type="button" class="page-link" (click)="fetchReservations(filter, page - 1)">Previous</a>
+      <a type="button" class="page-link" (click)="previousPage()">Previous</a>
     </li>
     <li class="page-item" [class.disabled]="page >= totalPages">
-      <a type="button" class="page-link" (click)="fetchReservations(filter, page + 1)">Next</a>
+      <a type="button" class="page-link" (click)="nextPage()">Next</a>
     </li>
   </ul>
 </nav>

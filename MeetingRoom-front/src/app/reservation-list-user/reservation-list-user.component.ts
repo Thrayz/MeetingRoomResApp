@@ -59,14 +59,30 @@ export class ReservationListUserComponent implements OnInit {
       (data: any) => {
         this.reservations = data.reservations;
         this.totalPages = data.totalPages;
-        // retarded ass shit
         // no fucking idea what's wrong with this shit
         // TODO: make the pagination stop being a fucking bitch
+        //AHAHAHAHAHAHAHAHAHAHA
+        //yea fuck my life
       },
       (error: any) => {
         console.error('Error fetching reservations:', error);
       }
     );
+  }
+
+  //shitty hack for the pagination shit 
+  nextPage(): void {
+    if (this.page < this.totalPages) {
+      this.page++;
+      this.fetchReservations(this.filter, this.page);
+    }
+  }
+
+  previousPage(): void {
+    if (this.page > 1) {
+      this.page--;
+      this.fetchReservations(this.filter, this.page);
+    }
   }
 
   addReservation(): void {

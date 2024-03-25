@@ -15,6 +15,10 @@ export class ReservationListUserComponent implements OnInit {
   reservations: Reservation[] = [];
   userId!: string;
   meetingRooms: MeetingRoom[] = [];
+  filter: { meetingRoomId?: string, date?: string } = {};
+  page = 1;
+  limit = 5;
+  totalPages = 0;
 
   constructor(
     private reservationService: ReservationService,
@@ -31,42 +35,39 @@ export class ReservationListUserComponent implements OnInit {
       },
       (error: any) => {
         console.error('Error fetching meeting rooms:', error);
-      
       }
     );
+
     const token = localStorage.getItem('token');
     if (token) {
       this.userId = this.jwtService.decodeToken(token).id;
     }
-    console.log('userId:', this.userId);
+    
     this.fetchReservations();
   }
 
-filter: { meetingRoomId?: string, date?: string } = {};
-page = 1;
-limit = 5;
+  filterReservations(meetingRoomId: string, date: string): void {
+    const filter = {
+      meetingRoomId: meetingRoomId || undefined,
+      date: date || undefined
+    };
+    this.fetchReservations(filter);
+  }
 
-filterReservations(meetingRoomId: string, date: string): void {
-  const filter = {
-    meetingRoomId: meetingRoomId || undefined,
-    date: date || undefined
-  };
-  this.fetchReservations(filter);
-}
-
-fetchReservations(filter = {}, page = 1): void {
-  console.log('filter:', filter);
-  console.log('fetchReservations called with filter:', filter, 'and page:', page);
-
-  this.reservationService.getReservationsByUserFilter(this.userId, filter, page, this.limit).subscribe(
-    (data: any) => {
-      this.reservations = data.reservations;
-    },
-    (error: any) => {
-      console.error('Error fetching reservations:', error);
-    }
-  );
-}
+  fetchReservations(filter = {}, page = 1): void {
+    this.reservationService.getReservationsByUserFilter(this.userId, filter, page, this.limit).subscribe(
+      (data: any) => {
+        this.reservations = data.reservations;
+        this.totalPages = data.totalPages;
+        // retarded ass shit
+        // no fucking idea what's wrong with this shit
+        // TODO: make the pagination stop being a fucking bitch
+      },
+      (error: any) => {
+        console.error('Error fetching reservations:', error);
+      }
+    );
+  }
 
   addReservation(): void {
     this.router.navigate(['/reservations/create']);
@@ -87,11 +88,10 @@ fetchReservations(filter = {}, page = 1): void {
     );
   }
 
-
+  // looks like shit but it works for now so hey fuck it 
   handleInput(event: Event, field: string): void {
     const value = (event.target as HTMLInputElement).value;
     this.filter[field as keyof typeof this.filter] = value;
     this.fetchReservations(this.filter, this.page);
   }
 }
-

@@ -212,32 +212,6 @@ exports.getReservationsByUserPaginated = async (req, res) => {
     }
 };
 
-exports.filterReservationsPaginated = async (req, res) => {
-    try {
-        const { user, meetingRoom, reservationDate, startTime, endTime } = req.query;
-        const filter = {};
-        if (user) filter.user = user;
-        if (meetingRoom) filter.meetingRoom = meetingRoom;
-        if (reservationDate) filter.reservationDate = reservationDate;
-        if (startTime && endTime) {
-            filter.startTime = { $lt: endTime };
-            filter.endTime = { $gt: startTime };
-        }
-        const { page = 1, limit = 10 } = req.query;
-        const reservations = await Reservation.find(filter)
-            .limit(limit * 1)
-            .skip((page - 1) * limit)
-            .exec();
-        const count = await Reservation.countDocuments(filter);
-        res.status(200).json({
-            reservations,
-            totalPages: Math.ceil(count / limit),
-            currentPage: page
-        });
-    } catch (error) {
-        res.status(400).json({ message: error.message });
-    }
-};
 
 
 exports.getReservationsByUserAndFilterPaginated = async (req, res) => {
@@ -247,9 +221,13 @@ exports.getReservationsByUserAndFilterPaginated = async (req, res) => {
         const filter = { user: userId };
         if (meetingRoomId) filter.meetingRoom = meetingRoomId;
         if (reservationDate) filter.reservationDate = reservationDate;
-        const { page = 1, limit = 3 } = req.query;
+        let { page = 1, limit = 10 } = req.query;
+        
+        page = +page;
+        limit = +limit;
+
         const reservations = await Reservation.find(filter)
-            .limit(limit * 1)
+            .limit(limit)
             .skip((page - 1) * limit)
             .exec();
         const count = await Reservation.countDocuments(filter);

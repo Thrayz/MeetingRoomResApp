@@ -1,26 +1,20 @@
-<div class="container d-flex justify-content-center align-items-center vh-100">
-    <div class="card shadow-lg p-3 mb-5 bg-white rounded" style="max-width: 30rem;">
-      <div class="card-body">
-        <h2 class="card-title text-center mb-4">Register</h2>
-        <form [formGroup]="registerForm" (ngSubmit)="register()">
-          <div class="form-floating mb-3">
-            <input id="name" type="text" class="form-control" formControlName="name" placeholder="John Doe" required>
-            <label for="name">Full Name</label>
-          </div>
-          <div class="form-floating mb-3">
-            <input id="email" type="email" class="form-control" formControlName="email" placeholder="name@example.com" required>
-            <label for="email">Email address</label>
-          </div>
-          <div class="form-floating mb-3">
-            <input id="password" type="password" class="form-control" formControlName="password" placeholder="Password" required>
-            <label for="password">Password</label>
-          </div>
-          <div class="form-floating mb-3">
-            <input id="role" type="text" class="form-control" formControlName="role" placeholder="Role" required>
-            <label for="role">Role</label>
-          </div>
-          <button class="btn btn-primary btn-lg btn-block" type="submit">Register</button>
-        </form>
+<div class="container d-flex justify-content-center align-items-center vh-100 text-center text-white">
+  <div class="animated fadeInDown login-form" style="max-width: 30rem;">
+    <h2 class="display-4 mb-4">Register</h2>
+    <form [formGroup]="registerForm" (ngSubmit)="register()">
+      <div class="form-floating mb-3">
+        <input id="name" type="text" class="form-control" formControlName="name" placeholder="John Doe" required>
       </div>
-    </div>
+      <div class="form-floating mb-3">
+        <input id="email" type="email" class="form-control" formControlName="email" placeholder="name@example.com" required>
+      </div>
+      <div class="form-floating mb-3">
+        <input id="password" type="password" class="form-control" formControlName="password" placeholder="Password" required>
+      </div>
+      <div class="form-floating mb-3">
+        <input id="role" type="text" class="form-control" formControlName="role" placeholder="Role" required>
+      </div>
+      <button class="btn btn-primary btn-lg btn-block" type="submit">Register</button>
+    </form>
   </div>
+</div>

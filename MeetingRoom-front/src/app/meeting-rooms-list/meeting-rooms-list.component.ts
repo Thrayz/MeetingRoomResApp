@@ -12,7 +12,7 @@ import { Router } from '@angular/router';
 export class MeetingRoomsListComponent implements OnInit {
   meetingRooms: MeetingRoom[] = [];
   page: number = 1;
-  limit: number = 4;
+  limit: number = 3;
   totalPages: number = 0;
 
 

@@ -1,1 +1,57 @@
-<p>welcome works!</p>
+<div class="container d-flex flex-column justify-content-center align-items-center vh-100 text-center">
+    <h1 class="display-4 mb-4 text-white animated fadeInDown">Welcome Back</h1>
+    <p class="lead mb-5 text-white animated fadeInUp">Find the perfect space for your next meeting. Let's get started!</p>
+    <div class="btn-group-vertical animated fadeInUp">
+        <a href="/meeting-rooms" class="btn btn-light btn-lg mb-3 shadow">Explore Meeting Rooms</a>
+        <a href="/reservationsByUser" class="btn btn-light btn-lg shadow">Your Reservations</a>
+    </div>
+</div>
+
+<style>
+.container {
+    background: linear-gradient(rgba(0,0,0,0.7),rgba(0,0,0,0.7)), url('https://source.unsplash.com/random/1920x1080?meeting,office');
+    background-size: cover;
+    color: white;
+}
+
+.btn-light {
+    color: #333;
+    border: 1px solid #fff;
+    transition: all 0.3s ease;
+}
+
+.btn-light:hover {
+    color: #333;
+    background-color: #fff;
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+}
+
+.animated {
+    animation-duration: 1s;
+}
+
+@keyframes fadeInDown {
+    from {
+        opacity: 0;
+        transform: translate3d(0, -100%, 0);
+    }
+
+    to {
+        opacity: 1;
+        transform: translate3d(0, 0, 0);
+    }
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translate3d(0, 100%, 0);
+    }
+
+    to {
+        opacity: 1;
+        transform: translate3d(0, 0, 0);
+    }
+}
+</style>

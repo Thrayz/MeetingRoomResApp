@@ -1,0 +1,47 @@
+:host {
+    display: block;
+    background: linear-gradient(rgba(0,0,0,0.7),rgba(0,0,0,0.7)), url('https://source.unsplash.com/random/1920x1080?meeting,office');
+    background-size: cover;
+    background-position: center;
+}
+
+.btn-primary {
+    color: #333;
+    border: 1px solid #fff;
+    transition: all 0.3s ease;
+}
+
+.btn-primary:hover {
+    color: #333;
+    background-color: #fff;
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+}
+
+.animated {
+    animation-duration: 1s;
+}
+
+@keyframes fadeInDown {
+    from {
+        opacity: 0;
+        transform: translate3d(0, -100%, 0);
+    }
+
+    to {
+        opacity: 1;
+        transform: translate3d(0, 0, 0);
+    }
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translate3d(0, 100%, 0);
+    }
+
+    to {
+        opacity: 1;
+        transform: translate3d(0, 0, 0);
+    }
+}

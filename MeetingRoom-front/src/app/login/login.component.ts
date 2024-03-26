@@ -29,11 +29,10 @@ export class LoginComponent implements OnInit {
         res => {
           localStorage.setItem('token', res.token); 
           console.log(res);
+          this.router.navigate(['/welcome']);
         },
         err => console.error(err)
       );
-
-      this.router.navigate(['/welcome']);
     }
 
   }

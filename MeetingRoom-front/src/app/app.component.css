@@ -1,0 +1,10 @@
+.content {
+    padding-top: 5px; 
+    padding-bottom: 50px;
+}
+:host {
+    display: block;
+    background: linear-gradient(rgba(0,0,0,0.7),rgba(0,0,0,0.7)), url('https://source.unsplash.com/random/1920x1080?meeting,office');
+    background-size: cover;
+    background-position: center;
+}

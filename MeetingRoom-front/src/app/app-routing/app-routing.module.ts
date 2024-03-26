@@ -24,8 +24,8 @@ const routes: Routes = [
   { path: 'meeting-rooms/update/:id', component: MeetingRoomUpdateComponent },
   { path: 'meeting-rooms', component: MeetingRoomsListComponent },
   { path: 'meeting-rooms/consult/:id', component: MeetingRoomConsultComponent},
-  { path: '', redirectTo: '/reservations', pathMatch: 'full' }, 
-  { path: '**', redirectTo: '/reservations', pathMatch: 'full' } 
+  { path: '', redirectTo: '/welcome', pathMatch: 'full' }, 
+  { path: '**', redirectTo: '/welcome', pathMatch: 'full' } 
 ];
 
 @NgModule({

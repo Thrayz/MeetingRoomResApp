@@ -1,9 +1,29 @@
-<nav class="header">
-    <a *ngIf="authService.isAuthenticated()" routerLink="/">Home</a>
-    <a *ngIf="authService.isAuthenticated()" routerLink="/reservationsByUser">Reservations</a>
-    <a *ngIf="authService.isAuthenticated()" routerLink="/meeting-rooms">Meeting Rooms</a>
-    <div class="spacer"></div>
-    <a *ngIf="!authService.isAuthenticated()" routerLink="/login">Login</a>
-    <a *ngIf="!authService.isAuthenticated()" routerLink="/register">Register</a>
-    <a  style="cursor: pointer;" *ngIf="authService.isAuthenticated()" (click)="authService.logout()">Logout</a>
-  </nav>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <div class="container-fluid">
+    <a class="navbar-brand" *ngIf="authService.isAuthenticated()" routerLink="/">Home</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item" *ngIf="authService.isAuthenticated()">
+          <a class="nav-link" routerLink="/reservationsByUser">Reservations</a>
+        </li>
+        <li class="nav-item" *ngIf="authService.isAuthenticated()">
+          <a class="nav-link" routerLink="/meeting-rooms">Meeting Rooms</a>
+        </li>
+      </ul>
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item" *ngIf="!authService.isAuthenticated()">
+          <a class="nav-link" routerLink="/login">Login</a>
+        </li>
+        <li class="nav-item" *ngIf="!authService.isAuthenticated()">
+          <a class="nav-link" routerLink="/register">Register</a>
+        </li>
+        <li class="nav-item" *ngIf="authService.isAuthenticated()">
+          <a class="nav-link" style="cursor: pointer;" (click)="authService.logout()">Logout</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>

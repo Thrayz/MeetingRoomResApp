@@ -1,7 +1,8 @@
+<div  class="mt-3 justify-content-center center align-items-center">
+  <button type="button" class="btn btn-success btn-lg btn-block " (click)="addMeetingRoom()">Add Meeting Room</button>
+</div>
 <div class="container d-flex justify-content-center align-items-center" style="height: 100vh; width: 100vw;">
-  <div class="mt-3">
-    <button type="button" class="btn btn-success btn-lg btn-block" (click)="addMeetingRoom()">Add Meeting Room</button>
-  </div>
+  
   <div class="row" style="width: 90%;">
     <div *ngFor="let room of meetingRooms; let i = index" class="col-lg-4 col-md-6 d-flex justify-content-center">
       <div class="card shadow-lg p-3 mb-5 bg-white rounded" style="width: 24rem;">
@@ -20,7 +21,9 @@
     </div>
   </div>
   
-</div><nav aria-label="Page navigation example" class="mt-3">
+</div>
+
+<nav aria-label="Page navigation example" class="mt-3">
   <ul class="pagination justify-content-center">
     <li class="page-item" [class.disabled]="page <= 1">
       <a type="button" class="page-link" (click)="previousPage()">Previous</a>

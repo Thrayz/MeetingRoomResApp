@@ -15,7 +15,7 @@ export class ReservationListUserComponent implements OnInit {
   reservations: Reservation[] = [];
   userId!: string;
   meetingRooms: MeetingRoom[] = [];
-  filter: { meetingRoomId?: string, date?: string } = {};
+  filter: { meetingRoomId?: string, date?: string, status?: string } = {};
   page = 1;
   limit = 5;
   totalPages = 0;
@@ -58,15 +58,17 @@ export class ReservationListUserComponent implements OnInit {
     console.log(filter);
   }
 
+  filterReservationsByStatus(status: string): void {
+    this.filter.status = status;
+    this.fetchReservations(this.filter);
+  }
+
   fetchReservations(filter = {}, page = 1): void {
     this.reservationService.getReservationsByUserFilter(this.userId, filter, page, this.limit).subscribe(
       (data: any) => {
         this.reservations = data.reservations;
         this.totalPages = data.totalPages;
-        // no fucking idea what's wrong with this shit
-        // TODO: make the pagination stop being a fucking bitch
-        //AHAHAHAHAHAHAHAHAHAHA
-        //yea fuck my life
+      
       },
       (error: any) => {
         console.error('Error fetching reservations:', error);
@@ -74,7 +76,6 @@ export class ReservationListUserComponent implements OnInit {
     );
   }
 
-  //shitty hack for the pagination shit 
   nextPage(): void {
     if (this.page < this.totalPages) {
       this.page++;

@@ -8,6 +8,14 @@ const reservationSchema = new mongoose.Schema({
     endTime: {type: Date, required: true}
 });
 
+reservationSchema.virtual('meetingRoomObject', {
+    ref: 'meetingRoom', 
+    localField: 'meetingRoom', 
+    foreignField: '_id', 
+    justOne: true 
+  });
+
+
 const Reservation = mongoose.model('Reservation', reservationSchema);
 
 module.exports = {Reservation, reservationSchema};

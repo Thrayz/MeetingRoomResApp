@@ -219,6 +219,11 @@ exports.getReservationsByUserAndFilterPaginated = async (req, res) => {
         const { userId } = req.params;
         const { meetingRoomId, date } = req.query;
         const filter = { user: userId };
+        if (req.query.status === 'active') {
+            filter.reservationDate = { $gte: new Date() };
+          } else if (req.query.status === 'past') {
+            filter.reservationDate = { $lt: new Date() };
+          }
         if (meetingRoomId) filter.meetingRoom = meetingRoomId;
         if (date) {
             const [year, month, day] = date.split('-');
@@ -229,17 +234,18 @@ exports.getReservationsByUserAndFilterPaginated = async (req, res) => {
                 $lte: endDate
             };
         }
-        console.log(req.query, filter);
         let { page = 1, limit = 10 } = req.query;
         
         page = +page;
         limit = +limit;
 
         const reservations = await Reservation.find(filter)
+            .populate('meetingRoom', 'name')
             .limit(limit)
             .skip((page - 1) * limit)
             .exec();
         const count = await Reservation.countDocuments(filter);
+        console.log(reservations);
         res.status(200).json({
             reservations,
             totalPages: Math.ceil(count / limit),
@@ -250,3 +256,5 @@ exports.getReservationsByUserAndFilterPaginated = async (req, res) => {
         res.status(400).json({ message: error.message });
     }
 };
+
+

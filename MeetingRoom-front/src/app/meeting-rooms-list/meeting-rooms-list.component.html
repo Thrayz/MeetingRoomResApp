@@ -1,23 +1,32 @@
-
 <div class="container d-flex justify-content-center align-items-center" style="height: 100vh; width: 100vw;">
-    <div class="row" style="width: 90%;">
-      <div *ngFor="let room of meetingRooms; let i = index" class="col-lg-3 col-md-6 d-flex justify-content-center">
-        <div class="card shadow-lg p-3 mb-5 bg-white rounded" style="width: 18rem;">
-          <div class="card-body">
-            <h5 class="card-title">{{ room.name }}</h5>
-            <p class="card-text">Capacity: {{ room.capacity }}</p>
-            <p class="card-text">Equipments: {{ room.equipments.join(', ') }}</p>
-            <p class="card-text">Availability: {{ room.availability ? 'Available' : 'Not Available' }}</p>
-            <div class="btn-group" role="group" aria-label="Meeting Room Actions">
-              <button type="button" class="btn btn-primary mr-2" (click)="updateMeetingRoom(room._id)">Update</button>
-              <button type="button" class="btn btn-danger mr-2" (click)="deleteMeetingRoom(room._id)">Delete</button>
-              <button type="button" class="btn btn-info" (click)="consultRoom(room._id)">Consult</button>
-            </div>
+  <div class="mt-3">
+    <button type="button" class="btn btn-success btn-lg btn-block" (click)="addMeetingRoom()">Add Meeting Room</button>
+  </div>
+  <div class="row" style="width: 90%;">
+    <div *ngFor="let room of meetingRooms; let i = index" class="col-lg-4 col-md-6 d-flex justify-content-center">
+      <div class="card shadow-lg p-3 mb-5 bg-white rounded" style="width: 24rem;">
+        <div class="card-body">
+          <h5 class="card-title">{{ room.name }}</h5>
+          <p class="card-text">Capacity: {{ room.capacity }}</p>
+          <p class="card-text">Equipments: {{ room.equipments.join(', ') }}</p>
+          <p class="card-text">Availability: {{ room.availability ? 'Available' : 'Not Available' }}</p>
+          <div class="btn-group" role="group" aria-label="Meeting Room Actions">
+            <button type="button" class="btn btn-primary mr-2" (click)="updateMeetingRoom(room._id)">Update</button>
+            <button type="button" class="btn btn-danger mr-2" (click)="deleteMeetingRoom(room._id)">Delete</button>
+            <button type="button" class="btn btn-info" (click)="consultRoom(room._id)">Consult</button>
           </div>
         </div>
       </div>
     </div>
-    <div class="mt-3">
-      <button type="button" class="btn btn-success btn-lg btn-block" (click)="addMeetingRoom()">Add Meeting Room</button>
-    </div>
   </div>
+  
+</div><nav aria-label="Page navigation example" class="mt-3">
+  <ul class="pagination justify-content-center">
+    <li class="page-item" [class.disabled]="page <= 1">
+      <a type="button" class="page-link" (click)="previousPage()">Previous</a>
+    </li>
+    <li class="page-item" [class.disabled]="page >= totalPages">
+      <a type="button" class="page-link" (click)="nextPage()">Next</a>
+    </li>
+  </ul>
+</nav>

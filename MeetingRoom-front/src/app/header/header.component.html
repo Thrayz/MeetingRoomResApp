@@ -5,5 +5,5 @@
     <div class="spacer"></div>
     <a *ngIf="!authService.isAuthenticated()" routerLink="/login">Login</a>
     <a *ngIf="!authService.isAuthenticated()" routerLink="/register">Register</a>
-    <a *ngIf="authService.isAuthenticated()" (click)="authService.logout()">Logout</a>
+    <a  style="cursor: pointer;" *ngIf="authService.isAuthenticated()" (click)="authService.logout()">Logout</a>
   </nav>

@@ -11,6 +11,9 @@ import { Router } from '@angular/router';
 })
 export class MeetingRoomsListComponent implements OnInit {
   meetingRooms: MeetingRoom[] = [];
+  page: number = 1;
+  limit: number = 3;
+  totalPages: number = 0;
 
 
   constructor(private meetingRoomService: MeetingRoomService,
@@ -19,15 +22,31 @@ export class MeetingRoomsListComponent implements OnInit {
      ) { }
 
   ngOnInit(): void {
-    this.meetingRoomService.getAllMeetingRooms().subscribe(
-      (meetingRooms: MeetingRoom[]) => {
-        this.meetingRooms = meetingRooms;
+    this.getMeetingRooms();
+  }
+
+  getMeetingRooms(): void {
+    this.meetingRoomService.getMeetingRoomsPaginated(this.page, this.limit).subscribe(
+      (response: any) => {
+        this.meetingRooms = response.meetingRooms;
+        this.totalPages = response.totalPages;
       },
       (error: any) => {
         console.error('Error fetching meeting rooms:', error);
-      
       }
     );
+  }
+
+  nextPage(): void {
+    this.page++;
+    this.getMeetingRooms();
+  }
+
+  previousPage(): void {
+    if (this.page > 1) {
+      this.page--;
+      this.getMeetingRooms();
+    }
   }
 
   addMeetingRoom(): void {
@@ -44,6 +63,7 @@ export class MeetingRoomsListComponent implements OnInit {
         this.meetingRoomService.getAllMeetingRooms().subscribe(
           (meetingRooms: MeetingRoom[]) => {
             this.meetingRooms = meetingRooms;
+
           },
           (error: any) => {
             console.error('Error fetching meeting rooms:', error);

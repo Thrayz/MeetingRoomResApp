@@ -31,5 +31,13 @@ export class MeetingRoomService {
     return this.http.delete<any>(`${this.baseUrl}/${id}`);
   }
 
-  
+
+  getMeetingRoomsPaginated(page = 1, limit = 10): Observable<any> {
+    return this.http.get<any>(`${this.baseUrl}/paginated`, {
+      params: { page: page.toString(), limit: limit.toString() }
+    });
+  }
+
 }
+ 
+

@@ -21,6 +21,7 @@ import { ReservationListUserComponent } from './reservation-list-user/reservatio
 import { MeetingRoomConsultComponent } from './meeting-room-consult/meeting-room-consult.component';
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
+import { WelcomeComponent } from './welcome/welcome.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,8 @@ import { FooterComponent } from './footer/footer.component';
     ReservationListUserComponent,
     MeetingRoomConsultComponent,
     HeaderComponent,
-    FooterComponent
+    FooterComponent,
+    WelcomeComponent
   ],
   imports: [
     BrowserModule,

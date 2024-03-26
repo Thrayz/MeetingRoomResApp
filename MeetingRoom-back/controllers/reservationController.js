@@ -220,7 +220,6 @@ exports.getReservationsByUserAndFilterPaginated = async (req, res) => {
         const { meetingRoomId, date } = req.query;
         const filter = { user: userId };
         if (meetingRoomId) filter.meetingRoom = meetingRoomId;
-        //looks like shit, works, therefore fuck it 
         if (date) {
             const [year, month, day] = date.split('-');
             const startDate = new Date(Date.UTC(Number(year), Number(month) - 1, Number(day), 0, 0, 0));

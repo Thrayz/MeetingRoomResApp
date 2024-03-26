@@ -10,10 +10,12 @@ import { LoginComponent } from '../login/login.component';
 import { RegisterComponent } from '../register/register.component';
 import { ReservationListUserComponent } from '../reservation-list-user/reservation-list-user.component';
 import { MeetingRoomConsultComponent } from '../meeting-room-consult/meeting-room-consult.component';
+import { WelcomeComponent } from '../welcome/welcome.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
+  { path: 'welcome', component: WelcomeComponent },
   { path: 'reservations/create', component: ReservationCreateComponent },
   { path: 'reservations/update/:id', component: ReservationUpdateComponent },
   { path: 'reservations', component: ReservationListComponent },

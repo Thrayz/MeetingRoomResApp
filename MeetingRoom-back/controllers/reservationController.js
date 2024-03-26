@@ -217,10 +217,20 @@ exports.getReservationsByUserPaginated = async (req, res) => {
 exports.getReservationsByUserAndFilterPaginated = async (req, res) => {
     try {
         const { userId } = req.params;
-        const { meetingRoomId, reservationDate } = req.query;
+        const { meetingRoomId, date } = req.query;
         const filter = { user: userId };
         if (meetingRoomId) filter.meetingRoom = meetingRoomId;
-        if (reservationDate) filter.reservationDate = reservationDate;
+        //looks like shit, works, therefore fuck it 
+        if (date) {
+            const [year, month, day] = date.split('-');
+            const startDate = new Date(Date.UTC(Number(year), Number(month) - 1, Number(day), 0, 0, 0));
+            const endDate = new Date(Date.UTC(Number(year), Number(month) - 1, Number(day), 23, 59, 59));
+            filter.reservationDate = {
+                $gte: startDate,
+                $lte: endDate
+            };
+        }
+        console.log(req.query, filter);
         let { page = 1, limit = 10 } = req.query;
         
         page = +page;

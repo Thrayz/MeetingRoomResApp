@@ -46,12 +46,16 @@ export class ReservationListUserComponent implements OnInit {
     this.fetchReservations();
   }
 
+
+  //doesn't filter by date
+  //fuck working with dates
   filterReservations(meetingRoomId: string, date: string): void {
     const filter = {
-      meetingRoomId: meetingRoomId || undefined,
+      meetingRoomId: meetingRoomId || '',
       date: date || undefined
     };
     this.fetchReservations(filter);
+    console.log(filter);
   }
 
   fetchReservations(filter = {}, page = 1): void {

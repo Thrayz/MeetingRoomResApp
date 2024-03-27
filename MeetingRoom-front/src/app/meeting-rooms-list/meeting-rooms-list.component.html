@@ -10,15 +10,15 @@
           <p class="card-text">Equipments: {{ room.equipments.join(', ') }}</p>
           <p class="card-text">Availability: {{ room.availability ? 'Available' : 'Not Available' }}</p>
           <div class="btn-group animated fadeInUp" role="group" aria-label="Meeting Room Actions">
-            <button type="button" class="btn btn-primary mr-2 shadow" (click)="updateMeetingRoom(room._id)">Update</button>
-            <button type="button" class="btn btn-danger mr-2 shadow" (click)="deleteMeetingRoom(room._id)">Delete</button>
+            <button *ngIf="authService.isAdmin()" type="button" class="btn btn-primary mr-2 shadow" (click)="updateMeetingRoom(room._id)">Update</button>
+            <button *ngIf="authService.isAdmin()" type="button" class="btn btn-danger mr-2 shadow" (click)="deleteMeetingRoom(room._id)">Delete</button>
             <button type="button" class="btn btn-info shadow" (click)="consultRoom(room._id)">Consult</button>
           </div>
         </div>
       </div>
     </div>
   </div>
-  <button type="button" class="btn btn-success btn-lg btn-block animated fadeInDown shadow-lg" (click)="addMeetingRoom()">Add Meeting Room</button>
+  <button *ngIf="authService.isAdmin()" type="button" class="btn btn-success btn-lg btn-block animated fadeInDown shadow-lg" (click)="addMeetingRoom()">Add Meeting Room</button>
   <nav aria-label="Page navigation example" class="mt-3 animated fadeInUp">
     <ul class="pagination justify-content-center">
       <li class="page-item" [class.disabled]="page <= 1">

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MeetingRoom } from '../models/MeetingRoom';
 import { MeetingRoomService } from '../services/meeting-room.service';
 import { Router } from '@angular/router';
+import { AuthService } from '../services/auth.service';
 
 
 @Component({
@@ -17,7 +18,8 @@ export class MeetingRoomsListComponent implements OnInit {
 
 
   constructor(private meetingRoomService: MeetingRoomService,
-    private router: Router
+    private router: Router,
+    public authService: AuthService
 
      ) { }
 

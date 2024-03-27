@@ -21,7 +21,7 @@ exports.createReservation = async (req, res) => {
         const reservation = await Reservation.create({ user, meetingRoom, reservationDate, startTime, endTime });
         //just don't ask what is going on here
         //It's ugly, it works, don't touch it
-        
+
         const reservationDateObject = new Date(reservationDate);
         const reservationDateFormatted = reservationDateObject.toLocaleDateString('en-GB');
         const startTimeObject = new Date(startTime);
@@ -251,7 +251,6 @@ exports.getReservationsByUserAndFilterPaginated = async (req, res) => {
             .skip((page - 1) * limit)
             .exec();
         const count = await Reservation.countDocuments(filter);
-        console.log(reservations);
         res.status(200).json({
             reservations,
             totalPages: Math.ceil(count / limit),
@@ -261,6 +260,7 @@ exports.getReservationsByUserAndFilterPaginated = async (req, res) => {
     } catch (error) {
         res.status(400).json({ message: error.message });
     }
+
 };
 
 

@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
+import { jwtDecode } from 'jwt-decode';
 
 @Injectable({
   providedIn: 'root'
@@ -30,10 +31,22 @@ export class AuthService {
   isAuthenticated(): boolean {
     return !!localStorage.getItem('token');
   }
+
   isAdmin(): boolean {
-    return localStorage.getItem('role') === 'admin';
+    const token = localStorage.getItem('token');
+    if (!token) return false;
+
+    const decoded = jwtDecode(token) as { role: string }; 
+
+    return decoded.role === 'Admin';
   }
+
   isUser(): boolean {
-    return localStorage.getItem('role') === 'user';
-  }
+    const token = localStorage.getItem('token');
+    if (!token) return false;
+
+    const decoded = jwtDecode(token) as { role: string }; 
+
+    return decoded.role === 'User';
+  } 
 }

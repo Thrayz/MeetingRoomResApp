@@ -38,6 +38,13 @@ export class MeetingRoomService {
     });
   }
 
+  searchMeetingRoomsPaginated(searchTerm: string, page = 1, limit = 10): Observable<any> {
+    return this.http.get<any>(`${this.baseUrl}/search`, {
+      params: { searchTerm, page: page.toString(), limit: limit.toString() }
+    });
+  }
+  
+
 }
  
 

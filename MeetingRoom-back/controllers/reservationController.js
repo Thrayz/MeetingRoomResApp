@@ -120,65 +120,6 @@ exports.getReservationsByMeetingRoom = async (req, res) => {
 };
 
 
-exports.getReservationsByDate = async (req, res) => {
-    try {
-        const { date } = req.params;
-        const reservations = await Reservation.find({ reservationDate: date });
-        res.status(200).json(reservations);
-    } catch (error) {
-        res.status(400).json({ message: error.message });
-    }
-};
-
-exports.getReservationsByMeetingRoomAndDate = async (req, res) => {
-    try {
-        const { meetingRoomId, date } = req.params;
-        const reservations = await Reservation.find({ meetingRoom: meetingRoomId, reservationDate: date });
-        res.status(200).json(reservations);
-    } catch (error) {
-        res.status(400).json({ message: error.message });
-    }
-};  
-
-exports.getReservationsByUserAndDate = async (req, res) => {
-    try {
-        const { userId, date } = req.params;
-        const reservations = await Reservation.find({ user: userId, reservationDate: date });
-        res.status(200).json(reservations);
-    } catch (error) {
-        res.status(400).json({ message: error.message });
-    }
-};
-
-exports.getReservationsByUserAndMeetingRoom = async (req, res) => {
-    try {
-        const { userId, meetingRoomId } = req.params;
-        const reservations = await Reservation.find({ user: userId, meetingRoom: meetingRoomId });
-        res.status(200).json(reservations);
-    } catch (error) {
-        res.status(400).json({ message: error.message });
-    }
-};
-
-exports.getReservationsByUserMeetingRoomAndDate = async (req, res) => {
-    try {
-        const { userId, meetingRoomId, date } = req.params;
-        const reservations = await Reservation.find({ user: userId, meetingRoom: meetingRoomId, reservationDate: date });
-        res.status(200).json(reservations);
-    } catch (error) {
-        res.status(400).json({ message: error.message });
-    }
-};  
-
-exports.getReservationsByMeetingRoomAndTime = async (req, res) => {
-    try {
-        const { meetingRoomId, startTime, endTime } = req.params;
-        const reservations = await Reservation.find({ meetingRoom: meetingRoomId, startTime: { $lt: endTime }, endTime: { $gt: startTime } });
-        res.status(200).json(reservations);
-    } catch (error) {
-        res.status(400).json({ message: error.message });
-    }
-};
 
 
 exports.getAllReservationsPaginated = async (req, res) => {

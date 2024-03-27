@@ -1,6 +1,13 @@
 <div class="container d-flex flex-column justify-content-center align-items-center vh-100 text-center">
  
   <h1 class="display-4 mb-4 text-white animated fadeInDown">Meeting Rooms</h1>
+
+  <div class="input-group mb-3 animated fadeInUp" style="width: 90%;">
+    <input type="text" class="form-control" placeholder="Search by name or equipments" aria-label="Search for meeting rooms" aria-describedby="button-addon2" #searchInput>
+    <div class="input-group-append">
+      <button class="btn btn-outline-secondary" type="button" id="button-addon2" (click)="searchMeetingRooms(searchInput.value)">Search</button>
+    </div>
+  </div>
   <div class="row animated fadeInUp" style="width: 90%;">
     <div *ngFor="let room of meetingRooms; let i = index" class="col-lg-4 col-md-6 d-flex justify-content-center">
       <div class="card shadow-lg p-3 mb-5 bg-white rounded animated fadeInUp" style="width: 24rem;">

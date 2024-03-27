@@ -15,6 +15,7 @@ export class MeetingRoomsListComponent implements OnInit {
   page: number = 1;
   limit: number = 3;
   totalPages: number = 0;
+  searchTerm: string = '';
 
 
   constructor(private meetingRoomService: MeetingRoomService,
@@ -82,5 +83,20 @@ export class MeetingRoomsListComponent implements OnInit {
     this.router.navigate(['/meeting-rooms/consult', meetingRoomId]);
   }
 
+  searchMeetingRooms(searchTerm: string): void {
+    if (searchTerm) {
+      this.meetingRoomService.searchMeetingRoomsPaginated(searchTerm, this.page, this.limit).subscribe(
+        (response: any) => {
+          this.meetingRooms = response.meetingRooms;
+          this.totalPages = response.totalPages;
+        },
+        (error: any) => {
+          console.error('Error fetching meeting rooms:', error);
+        }
+      );
+    } else {
+      this.getMeetingRooms();
+    }
+  }
 
 }

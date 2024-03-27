@@ -22,6 +22,8 @@ import { MeetingRoomConsultComponent } from './meeting-room-consult/meeting-room
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 import { WelcomeComponent } from './welcome/welcome.component';
+import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.component';
+import { UserProfileComponent } from './user-profile/user-profile.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +40,9 @@ import { WelcomeComponent } from './welcome/welcome.component';
     MeetingRoomConsultComponent,
     HeaderComponent,
     FooterComponent,
-    WelcomeComponent
+    WelcomeComponent,
+    AdminDashboardComponent,
+    UserProfileComponent
   ],
   imports: [
     BrowserModule,

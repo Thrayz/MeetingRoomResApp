@@ -85,4 +85,31 @@ exports.getMeetingRoomsPaginated = async (req, res) => {
 };
 
 
+exports.searchMeetingRooms = async (req, res) => {
+    try {
+        
+        const { searchTerm, page = 1, limit = 10 } = req.query;
+        
+        const skip = (page - 1) * limit;
+
+        const meetingRooms = await MeetingRoom.find({
+            $or: [
+                { name: { $regex: searchTerm, $options: 'i' } },
+                { equipments: { $regex: searchTerm, $options: 'i' } }
+            ]
+        })
+        .limit(limit)
+        .skip(skip);
+        const totalPages = Math.ceil(meetingRooms.length / limit);
+        const currentPage = page;
+
+        res.status(200).json({ meetingRooms, totalPages, currentPage });
+        console.log(meetingRooms);
+    } catch (error) {
+        res.status(400).json({ message: error.message });
+    }
+};
+
+
+
 

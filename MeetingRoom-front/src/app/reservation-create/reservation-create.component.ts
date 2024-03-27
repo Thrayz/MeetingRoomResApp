@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { Reservation } from '../models/Reservation';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { JwtService } from '../services/jwt.service';
+import { json } from 'express';
 
 @Component({
   selector: 'app-reservation-create',
@@ -27,6 +28,10 @@ export class ReservationCreateComponent implements OnInit {
     private meetingRoomService: MeetingRoomService,
     private jwtService: JwtService
   ) { }
+
+  //the most retarded shit I've wrote in a while
+  //Looks like shit and might cause bugs in the future. Too bad
+  //future me don't fucking touch this shit, please
 
   ngOnInit(): void {
     const token = localStorage.getItem('token');
@@ -52,22 +57,42 @@ export class ReservationCreateComponent implements OnInit {
     this.reservationForm = this.formBuilder.group({
       _id: '',
       user: this.user.id,
-      meetingRoom: '',
-      reservationDate: [this.minDate, [Validators.required]],
-      startTime: '', 
-      endTime: ''
+      meetingRoom: [null, [Validators.required]],
+      reservationDate: [null, [Validators.required]],
+      startTime: ['', [Validators.required]], 
+      endTime: ['', [Validators.required]]
     });
   }
 
   submit(): void {
+    const date = this.reservationForm.value.reservationDate.split('T')[0];
+    if (isNaN(Date.parse(date))) {
+      console.error('Invalid date:', date);
+      return;
+    }
+    
     const reservation: Reservation = {
       ...this.reservationForm.value,
-      reservationDate: this.reservationForm.value.reservationDate,
-      startTime: this.extractTimeFromDate(new Date(this.reservationForm.value.reservationDate), this.reservationForm.value.startTime),
-      endTime: this.extractTimeFromDate(new Date(this.reservationForm.value.reservationDate), this.reservationForm.value.endTime),
+      reservationDate: new Date(date),
+      startTime: this.createDate(date, this.reservationForm.value.startTime),
+      endTime: this.createDate(date, this.reservationForm.value.endTime),
     };
     
     this.createReservation(reservation);
+  }
+  
+  formatDate(date: Date): string {
+    const d = new Date(date);
+    let month = '' + (d.getMonth() + 1);
+    let day = '' + d.getDate();
+    const year = d.getFullYear();
+  
+    if (month.length < 2) 
+      month = '0' + month;
+    if (day.length < 2) 
+      day = '0' + day;
+  
+    return [year, month, day].join('-');
   }
 
   createReservation(reservation: Reservation): void {
@@ -85,8 +110,25 @@ export class ReservationCreateComponent implements OnInit {
     );
   }
 
-  extractTimeFromDate(date: Date, time: string): Date {
+  extractTimeFromDate(date: string, time: string): string {
     const [hours, minutes] = time.split(':').map(Number);
-    return new Date(date.getFullYear(), date.getMonth(), date.getDate(), hours, minutes);
+    let h = '' + hours;
+    let m = '' + minutes;
+  
+    if (h.length < 2) 
+      h = '0' + h;
+    if (m.length < 2) 
+      m = '0' + m;
+  
+    return [h, m].join(':');
   }
+
+  createDate(date: string, time: string): Date {
+    console.log(`Creating date with date=${date} and time=${time}`);
+    const [year, month, day] = date.split('-').map(Number);
+    const [hours, minutes] = time.split(':').map(Number);
+    return new Date(year, month - 1, day, hours, minutes);
+  }
+
+  
 }

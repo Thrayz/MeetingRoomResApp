@@ -19,10 +19,16 @@ exports.createReservation = async (req, res) => {
         }
 
         const reservation = await Reservation.create({ user, meetingRoom, reservationDate, startTime, endTime });
+        //just don't ask what is going on here
+        //It's ugly, it works, don't touch it
+        
+        const reservationDateObject = new Date(reservationDate);
+        const reservationDateFormatted = reservationDateObject.toLocaleDateString('en-GB');
+        const startTimeObject = new Date(startTime);
+        const startTimeFormatted = startTimeObject.toLocaleTimeString('en-US', { hour12: true });
 
-        const reservationDateFormatted = reservationDate.toLocaleDateString('en-GB');
-        const startTimeFormatted = startTime.toLocaleTimeString('en-US', { hour12: true });
-        const endTimeFormatted = endTime.toLocaleTimeString('en-US', { hour12: true });
+        const endTimeObject = new Date(endTime);
+        const endTimeFormatted = endTimeObject.toLocaleTimeString('en-US', { hour12: true });
 
         const emailText = `Your reservation for the meeting room ${meetingRoom} on ${reservationDateFormatted} from ${startTimeFormatted} to ${endTimeFormatted} has been successfully created.`;
 

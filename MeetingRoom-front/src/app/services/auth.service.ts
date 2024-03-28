@@ -8,8 +8,8 @@ import { jwtDecode } from 'jwt-decode';
   providedIn: 'root'
 })
 export class AuthService {
-  private baseUrl = 'http://localhost:3000/auth';
-  //private baseUrl = 'https://mrra.onrender.com/auth';
+  //private baseUrl = 'http://localhost:3000/auth';
+  private baseUrl = 'https://mrra.onrender.com/auth';
 
   constructor(private http: HttpClient, private router: Router) { }
 

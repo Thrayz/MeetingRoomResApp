@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
 
-
 @Injectable({
   providedIn: 'root'
 })
@@ -17,7 +16,7 @@ export class ErrorHandlerService {
     } else if (error.status === 404) {
       this.router.navigate(['/404']);
     } else {
-      console.error('Unknown error occurred:', error);
+      this.router.navigate(['/error', { status: error.status }]);
     }
   }
 }

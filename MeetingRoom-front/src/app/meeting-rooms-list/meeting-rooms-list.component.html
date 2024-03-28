@@ -1,4 +1,4 @@
-<div class="container d-flex flex-column justify-content-center align-items-center vh-100 text-center">
+<div class="container d-flex flex-column justify-content-center align-items-center text-center">
  
   <h1 class="display-4 mb-4 text-white animated fadeInDown">Meeting Rooms</h1>
 
@@ -10,15 +10,15 @@
   </div>
   <div class="row animated fadeInUp" style="width: 90%;">
     <div *ngFor="let room of meetingRooms; let i = index" class="col-lg-4 col-md-6 d-flex justify-content-center">
-      <div class="card shadow-lg p-3 mb-5 bg-white rounded animated fadeInUp" style="width: 24rem;">
+      <div class="card shadow-lg p-3 mb-5 bg-white rounded animated fadeInUp">
         <div class="card-body">
           <h5 class="card-title">{{ room.name }}</h5>
           <p class="card-text">Capacity: {{ room.capacity }}</p>
           <p class="card-text">Equipments: {{ room.equipments.join(', ') }}</p>
           <p class="card-text">Availability: {{ room.availability ? 'Available' : 'Not Available' }}</p>
-          <div class="btn-group animated fadeInUp" role="group" aria-label="Meeting Room Actions">
-            <button *ngIf="authService.isAdmin()" type="button" class="btn btn-primary mr-2 shadow" (click)="updateMeetingRoom(room._id)">Update</button>
-            <button *ngIf="authService.isAdmin()" type="button" class="btn btn-danger mr-2 shadow" (click)="deleteMeetingRoom(room._id)">Delete</button>
+          <div class="btn-group-vertical flex-wrap animated fadeInUp" role="group" aria-label="Meeting Room Actions">
+            <button *ngIf="authService.isAdmin()" type="button" class="btn btn-primary mb-2 shadow" (click)="updateMeetingRoom(room._id)">Update</button>
+            <button *ngIf="authService.isAdmin()" type="button" class="btn btn-danger mb-2 shadow" (click)="deleteMeetingRoom(room._id)">Delete</button>
             <button type="button" class="btn btn-info shadow" (click)="consultRoom(room._id)">Consult</button>
           </div>
         </div>
@@ -37,5 +37,3 @@
     </ul>
   </nav>
 </div>
-
-

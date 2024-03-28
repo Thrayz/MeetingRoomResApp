@@ -98,7 +98,7 @@ export class ReservationCreateComponent implements OnInit {
   createReservation(reservation: Reservation): void {
     this.reservationService.createReservation(reservation).subscribe(
       () => {
-        this.router.navigate(['/reservations']);
+        this.router.navigate(['/reservationsByUser']);
       },
       (error: any) => {
         if (error.status === 409) {

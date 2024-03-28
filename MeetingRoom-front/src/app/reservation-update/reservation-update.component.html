@@ -5,6 +5,7 @@
         <form [formGroup]="reservationForm" (ngSubmit)="updateReservation()">
           <div class="form-floating mb-3">
             <select class="form-control" id="meetingRoom" formControlName="meetingRoom" required>
+              <option [value]="reservationForm.value.meetingRoom" selected>{{ reservationForm.value.meetingRoom.name }}</option>
               <option *ngFor="let room of meetingRooms" [value]="room._id">{{ room.name }}</option>
             </select>
             <label for="meetingRoom">Meeting Room</label>

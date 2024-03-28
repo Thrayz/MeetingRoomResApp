@@ -8,6 +8,7 @@ import { FullCalendarModule } from '@fullcalendar/angular';
 import { MatToolbarModule } from '@angular/material/toolbar';
 
 
+
 import { AppComponent } from './app.component';
 import { ReservationListComponent } from './reservation-list/reservation-list.component';
 import { ReservationCreateComponent } from './reservation-create/reservation-create.component';
@@ -24,6 +25,10 @@ import { FooterComponent } from './footer/footer.component';
 import { WelcomeComponent } from './welcome/welcome.component';
 import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.component';
 import { UserProfileComponent } from './user-profile/user-profile.component';
+import { Error401Component } from './errors/error401/error401.component';
+import { Error403Component } from './errors/error403/error403.component';
+import { Error404Component } from './errors/error404/error404.component';
+import { RoleGuardService as RoleGuard } from './services/role-guard.service';
 
 @NgModule({
   declarations: [
@@ -42,7 +47,10 @@ import { UserProfileComponent } from './user-profile/user-profile.component';
     FooterComponent,
     WelcomeComponent,
     AdminDashboardComponent,
-    UserProfileComponent
+    UserProfileComponent,
+    Error401Component,
+    Error403Component,
+    Error404Component
   ],
   imports: [
     BrowserModule,
@@ -53,7 +61,9 @@ import { UserProfileComponent } from './user-profile/user-profile.component';
     FullCalendarModule,
     MatToolbarModule
   ],
-  providers: [],
+  providers: [
+    RoleGuard,
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

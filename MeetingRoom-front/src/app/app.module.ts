@@ -29,6 +29,7 @@ import { Error401Component } from './errors/error401/error401.component';
 import { Error403Component } from './errors/error403/error403.component';
 import { Error404Component } from './errors/error404/error404.component';
 import { RoleGuardService as RoleGuard } from './services/role-guard.service';
+import { ErrorComponent } from './errors/error/error.component';
 
 @NgModule({
   declarations: [
@@ -50,7 +51,8 @@ import { RoleGuardService as RoleGuard } from './services/role-guard.service';
     UserProfileComponent,
     Error401Component,
     Error403Component,
-    Error404Component
+    Error404Component,
+    ErrorComponent
   ],
   imports: [
     BrowserModule,

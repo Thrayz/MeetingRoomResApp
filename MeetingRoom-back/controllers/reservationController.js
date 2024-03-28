@@ -30,7 +30,7 @@ exports.createReservation = async (req, res) => {
         const endTimeObject = new Date(endTime);
         const endTimeFormatted = endTimeObject.toLocaleTimeString('en-US', { hour12: true });
 
-        const emailText = `Your reservation for the meeting room ${meetingRoom} on ${reservationDateFormatted} from ${startTimeFormatted} to ${endTimeFormatted} has been successfully created.`;
+        const emailText = `Your reservation for the meeting room ${meetingRoom.name} on ${reservationDateFormatted} from ${startTimeFormatted} to ${endTimeFormatted} has been successfully created.`;
 
         await sendEmail('Reservation Confirmation', emailText);
 
@@ -60,6 +60,17 @@ exports.updateReservation = async (req, res) => {
         }
 
         const reservation = await Reservation.findByIdAndUpdate(reservationId, { user, meetingRoom, reservationDate, startTime, endTime });
+
+        const reservationDateObject = new Date(reservationDate);
+        const reservationDateFormatted = reservationDateObject.toLocaleDateString('en-GB');
+        const startTimeObject = new Date(startTime);
+        const startTimeFormatted = startTimeObject.toLocaleTimeString('en-US', { hour12: true });
+
+        const endTimeObject = new Date(endTime);
+        const endTimeFormatted = endTimeObject.toLocaleTimeString('en-US', { hour12: true });
+        console.log(meetingRoom);
+        const emailText = `Your reservation for the meeting room ${meetingRoom.name} on ${reservationDateFormatted} from ${startTimeFormatted} to ${endTimeFormatted} has been successfully updated.`;
+        await sendEmail('Reservation Update', emailText);
         res.status(200).json({ message: 'Reservation updated successfully', reservation });
     } catch (error) {
         res.status(400).json({ message: error.message });
@@ -71,6 +82,8 @@ exports.cancelReservation = async (req, res) => {
     try {
         const { reservationId } = req.params;
         await Reservation.findByIdAndDelete(reservationId);
+        const emailText = 'Your reservation has been successfully cancelled.';
+        await sendEmail('Reservation Cancellation', emailText);
         res.status(200).json({ message: 'Reservation cancelled successfully' });
     } catch (error) {
         res.status(400).json({ message: error.message });

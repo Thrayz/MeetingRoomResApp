@@ -82,7 +82,7 @@ export class ReservationUpdateComponent implements OnInit {
 
     this.reservationService.updateReservation(reservation._id, reservation).subscribe(
       () => {
-        this.router.navigate(['/reservations']);
+        this.router.navigate(['/reservationsByUser']);
       },
       (error: any) => {
         if (error.status === 409) {

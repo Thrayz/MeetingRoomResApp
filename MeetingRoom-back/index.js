@@ -11,7 +11,7 @@ const port = 3000;
 
 
 const corsOptions = {
-    origin: 'https://mrra.onrender.com',
+    origin: 'https://mrra-1d094.web.app',
     optionsSuccessStatus: 200
 };
 app.use(cors(corsOptions));

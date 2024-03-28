@@ -1,14 +1,41 @@
 const jwt = require('jsonwebtoken');
 const User = require('../models/User');
 
-const auth = async (req, res, next) => {
+const authorize = async (req, res, next) => {
     try {
         const token = req.header('Authorization').replace('Bearer ', '');
+        console.log(token, "test authorize");
         const decoded = jwt.verify(token, process.env.JWT_SECRET);
-        const user = await User.findOne({ _id: decoded.id, 'tokens.token': token });
+        console.log(decoded);
+        const user = await User.findOne({ _id: decoded.id});
+
         if (!user) {
             throw new Error();
         }
+        if (user.role !== 'Admin') {
+            throw new Error();
+        }
+
+        req.user = user;
+        req.token = token;
+        next();
+    } catch (error) {
+        res.status(403).json({ message: 'Access Denied' });
+    }
+};
+
+const auth = async (req, res, next) => {
+    try {
+        const token = req.header('Authorization').replace('Bearer ', '');
+     
+        const decoded = jwt.verify(token, process.env.JWT_SECRET);
+   
+        const user = await User.findOne({ _id: decoded.id});
+
+        if (!user) {
+            throw new Error();
+        }
+
         req.user = user;
         req.token = token;
         next();
@@ -17,4 +44,4 @@ const auth = async (req, res, next) => {
     }
 };
 
-module.exports = auth;
+module.exports = { authorize, auth };

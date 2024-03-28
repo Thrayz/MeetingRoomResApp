@@ -9,6 +9,7 @@ import { jwtDecode } from 'jwt-decode';
 })
 export class AuthService {
   private baseUrl = 'http://localhost:3000/auth';
+  //private baseUrl = 'https://mrra.onrender.com/auth';
 
   constructor(private http: HttpClient, private router: Router) { }
 
@@ -49,4 +50,13 @@ export class AuthService {
 
     return decoded.role === 'User';
   } 
+
+  getRole(): string {
+    const token = localStorage.getItem('token');
+    if (!token) return '';
+
+    const decoded = jwtDecode(token) as { role: string }; 
+
+    return decoded.role;
+  }
 }

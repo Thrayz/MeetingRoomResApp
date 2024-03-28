@@ -3,6 +3,7 @@ const cors = require('cors');
 const dotenv = require('dotenv');
 dotenv.config();
 const mongoose = require('mongoose');
+const { auth, authorize } = require('./middleware/auth');
 
 
 
@@ -11,12 +12,15 @@ const port = 3000;
 
 
 const corsOptions = {
-    origin: 'https://mrra-1d094.web.app',
+
+    origin: ['http://localhost:4200', process.env.FRONTEND_URL],
+   
     optionsSuccessStatus: 200
+    
 };
 app.use(cors(corsOptions));
 
-
+console.log(corsOptions);
 const reservationController = require('./controllers/reservationController');
 const meetingRoomController = require('./controllers/meetingRoomController');
 const authController = require('./controllers/authController');
@@ -26,9 +30,10 @@ const authRoutes = require('./routes/auth');
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use('/reservation', reservationRoutes);
-app.use('/meetingRoom', meetingRoomRoutes);
+app.use('/reservation', reservationRoutes, authorize);
+app.use('/meetingRoom', meetingRoomRoutes, authorize);
 app.use('/auth', authRoutes);
+
 
 app.use((err, req, res, next) => {
     console.error(err.stack);

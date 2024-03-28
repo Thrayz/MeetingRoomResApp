@@ -11,6 +11,10 @@ import { RegisterComponent } from '../register/register.component';
 import { ReservationListUserComponent } from '../reservation-list-user/reservation-list-user.component';
 import { MeetingRoomConsultComponent } from '../meeting-room-consult/meeting-room-consult.component';
 import { WelcomeComponent } from '../welcome/welcome.component';
+import { Error401Component } from '../errors/error401/error401.component';
+import { Error403Component } from '../errors/error403/error403.component';
+import { Error404Component } from '../errors/error404/error404.component';
+import { RoleGuardService as RoleGuard } from '../services/role-guard.service';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -20,12 +24,25 @@ const routes: Routes = [
   { path: 'reservations/update/:id', component: ReservationUpdateComponent },
   { path: 'reservations', component: ReservationListComponent },
   { path: 'reservationsByUser', component: ReservationListUserComponent},
-  { path: 'meeting-rooms/create', component: MeetingRoomCreateComponent },
-  { path: 'meeting-rooms/update/:id', component: MeetingRoomUpdateComponent },
+  { 
+    path: 'meeting-rooms/create', 
+    component: MeetingRoomCreateComponent,
+    canActivate: [RoleGuard], 
+    data: { expectedRole: 'Admin' } 
+  },
+  { 
+    path: 'meeting-rooms/update/:id', 
+    component: MeetingRoomUpdateComponent,
+    canActivate: [RoleGuard],
+    data: { expectedRole: 'Admin' }
+  },
   { path: 'meeting-rooms', component: MeetingRoomsListComponent },
   { path: 'meeting-rooms/consult/:id', component: MeetingRoomConsultComponent},
+  { path: '401', component: Error401Component },
+  { path: '403', component: Error403Component },
+  { path: '404', component: Error404Component },
   { path: '', redirectTo: '/welcome', pathMatch: 'full' }, 
-  { path: '**', redirectTo: '/welcome', pathMatch: 'full' } 
+  { path: '**', redirectTo: '/404', pathMatch: 'full' } 
 ];
 
 @NgModule({

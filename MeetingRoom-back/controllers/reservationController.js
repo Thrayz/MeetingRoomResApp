@@ -68,7 +68,7 @@ exports.updateReservation = async (req, res) => {
 
         const endTimeObject = new Date(endTime);
         const endTimeFormatted = endTimeObject.toLocaleTimeString('en-US', { hour12: true });
-        console.log(meetingRoom);
+        
         const emailText = `Your reservation for the meeting room ${meetingRoom.name} on ${reservationDateFormatted} from ${startTimeFormatted} to ${endTimeFormatted} has been successfully updated.`;
         await sendEmail('Reservation Update', emailText);
         res.status(200).json({ message: 'Reservation updated successfully', reservation });

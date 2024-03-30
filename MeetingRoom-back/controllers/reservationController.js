@@ -181,28 +181,31 @@ exports.getReservationsByUserAndFilterPaginated = async (req, res) => {
         const filter = { user: userId };
         if (req.query.status === 'active') {
             filter.reservationDate = { $gte: new Date() };
-          } else if (req.query.status === 'past') {
+        } else if (req.query.status === 'past') {
             filter.reservationDate = { $lt: new Date() };
-          }
+        }
         if (meetingRoomId) filter.meetingRoom = meetingRoomId;
         if (date) {
             const [year, month, day] = date.split('-');
             const startDate = new Date(Date.UTC(Number(year), Number(month) - 1, Number(day), 0, 0, 0));
             const endDate = new Date(Date.UTC(Number(year), Number(month) - 1, Number(day), 23, 59, 59));
-            filter.reservationDate = {
-                $gte: startDate,
-                $lte: endDate
-            };
+            if (!isNaN(startDate.getTime()) && !isNaN(endDate.getTime())) {
+                filter.reservationDate = {
+                    $gte: startDate,
+                    $lte: endDate
+                };
+            }
         }
         let { page = 1, limit = 10 } = req.query;
         
         page = +page;
         limit = +limit;
-
+        
         const reservations = await Reservation.find(filter)
             .populate('meetingRoom', 'name')
             .limit(limit)
             .skip((page - 1) * limit)
+            .sort({ reservationDate: -1 })
             .exec();
         const count = await Reservation.countDocuments(filter);
         res.status(200).json({

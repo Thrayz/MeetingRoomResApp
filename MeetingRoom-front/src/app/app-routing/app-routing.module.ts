@@ -25,6 +25,7 @@ const routes: Routes = [
   { path: 'reservations/update/:id', component: ReservationUpdateComponent },
   { path: 'reservations', component: ReservationListComponent },
   { path: 'reservationsByUser', component: ReservationListUserComponent},
+  { path: 'reservation-create/:id', component: ReservationCreateComponent },
   { 
     path: 'meeting-rooms/create', 
     component: MeetingRoomCreateComponent,

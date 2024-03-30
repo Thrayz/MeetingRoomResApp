@@ -4,6 +4,7 @@ const reservationController = require('../controllers/reservationController');
 const { auth, authorize } = require('../middleware/auth');
 
 router.post('/',auth, reservationController.createReservation);
+router.post('/reserve/:meetingRoomId',auth, reservationController.reserveMeetingRoomById);
 router.put('/:reservationId',auth, reservationController.updateReservation);
 router.delete('/:reservationId',auth, reservationController.cancelReservation);
 router.get('/', auth, reservationController.getAllReservations);

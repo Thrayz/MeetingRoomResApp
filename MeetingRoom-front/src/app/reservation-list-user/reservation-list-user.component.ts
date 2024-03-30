@@ -19,6 +19,7 @@ export class ReservationListUserComponent implements OnInit {
   page = 1;
   limit = 5;
   totalPages = 0;
+  today = new Date();
 
   constructor(
     private reservationService: ReservationService,
@@ -44,6 +45,7 @@ export class ReservationListUserComponent implements OnInit {
     }
     
     this.fetchReservations();
+    
   }
 
 
@@ -68,7 +70,7 @@ export class ReservationListUserComponent implements OnInit {
       (data: any) => {
         this.reservations = data.reservations;
         this.totalPages = data.totalPages;
-      
+        
       },
       (error: any) => {
         console.error('Error fetching reservations:', error);

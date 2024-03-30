@@ -203,6 +203,7 @@ exports.getReservationsByUserAndFilterPaginated = async (req, res) => {
             .populate('meetingRoom', 'name')
             .limit(limit)
             .skip((page - 1) * limit)
+            .sort({ reservationDate: -1 })
             .exec();
         const count = await Reservation.countDocuments(filter);
         res.status(200).json({
@@ -217,4 +218,28 @@ exports.getReservationsByUserAndFilterPaginated = async (req, res) => {
 
 };
 
+
+exports.reserveMeetingRoomById = async (req, res) => {
+    try {
+        const { meetingRoomId } = req.params;
+        const { user, reservationDate, startTime, endTime } = req.body;
+        const conflictingReservation = await Reservation.findOne({
+            meetingRoom: meetingRoomId,
+            reservationDate,
+            $or: [
+                { startTime: { $lt: endTime }, endTime: { $gt: startTime } },
+                { startTime: { $eq: startTime }, endTime: { $eq: endTime } }
+            ]
+        });
+
+        if (conflictingReservation) {
+            return res.status(409).json({ message: 'Conflict: The meeting room is already reserved for this time slot' });
+        }
+
+        const reservation = await Reservation.create({ user, meetingRoom: meetingRoomId, reservationDate, startTime, endTime });
+        res.status(201).json({ message: 'Reservation created successfully', reservation });
+    } catch (error) {
+        res.status(400).json({ message: error.message });
+    }
+};
 

@@ -7,6 +7,7 @@ import { Reservation } from '../models/Reservation';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { JwtService } from '../services/jwt.service';
 import { json } from 'express';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-reservation-create',
@@ -19,6 +20,9 @@ export class ReservationCreateComponent implements OnInit {
   user: any;
   conflictError: string = '';
   minDate!: string; 
+  meetingRoomId: any;
+  test: boolean = false;
+  meetingRoom: MeetingRoom = {} as MeetingRoom;
 
 
   constructor(
@@ -26,7 +30,8 @@ export class ReservationCreateComponent implements OnInit {
     private router: Router,
     private formBuilder: FormBuilder,
     private meetingRoomService: MeetingRoomService,
-    private jwtService: JwtService
+    private jwtService: JwtService,
+    private route: ActivatedRoute
   ) { }
 
   //the most retarded shit I've wrote in a while
@@ -34,6 +39,10 @@ export class ReservationCreateComponent implements OnInit {
   //future me don't fucking touch this shit, please
 
   ngOnInit(): void {
+
+    this.meetingRoomId = this.router.url.split('/').pop();
+    console.log(this.meetingRoomId);
+  
     const token = localStorage.getItem('token');
     if (token) {
       this.user = this.jwtService.decodeToken(token);
@@ -62,6 +71,21 @@ export class ReservationCreateComponent implements OnInit {
       startTime: ['', [Validators.required]], 
       endTime: ['', [Validators.required]]
     });
+    if (this.meetingRoomId && this.meetingRoomId !== 'create') {
+      this.test = true;
+      this.meetingRoomService.getMeetingRoomById(this.meetingRoomId).subscribe(
+        (meetingRoom: MeetingRoom) => {
+          this.meetingRoom = meetingRoom;
+          this.reservationForm.patchValue({
+            meetingRoom: this.meetingRoom._id
+          });
+        },
+        (error: any) => {
+          console.error('Error fetching meeting room:', error);
+        }
+      );
+     
+    }
   }
 
   submit(): void {

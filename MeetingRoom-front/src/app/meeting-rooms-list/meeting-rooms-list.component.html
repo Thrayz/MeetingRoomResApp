@@ -10,7 +10,7 @@
   </div>
   <div class="row animated fadeInUp" style="width: 90%;">
     <div *ngFor="let room of meetingRooms; let i = index" class="col-lg-4 col-md-6 d-flex justify-content-center">
-      <div class="card shadow-lg p-3 mb-5 bg-white rounded animated fadeInUp">
+      <div class="card shadow-lg p-3 mb-5 bg-white rounded animated fadeInUp" style="width: 24rem;">
         <div class="card-body">
           <h5 class="card-title">{{ room.name }}</h5>
           <p class="card-text">Capacity: {{ room.capacity }}</p>

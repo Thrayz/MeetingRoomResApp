@@ -1,4 +1,4 @@
-<div class="container d-flex flex-column justify-content-center align-items-center vh-100 text-center">
+<div class="container d-flex flex-column justify-content-center align-items-center text-center">
  
   <h1 class="display-4 mb-4 text-white animated fadeInDown">Meeting Rooms</h1>
 
@@ -16,9 +16,9 @@
           <p class="card-text">Capacity: {{ room.capacity }}</p>
           <p class="card-text">Equipments: {{ room.equipments.join(', ') }}</p>
           <p class="card-text">Availability: {{ room.availability ? 'Available' : 'Not Available' }}</p>
-          <div class="btn-group animated fadeInUp" role="group" aria-label="Meeting Room Actions">
-            <button *ngIf="authService.isAdmin()" type="button" class="btn btn-primary mr-2 shadow" (click)="updateMeetingRoom(room._id)">Update</button>
-            <button *ngIf="authService.isAdmin()" type="button" class="btn btn-danger mr-2 shadow" (click)="deleteMeetingRoom(room._id)">Delete</button>
+          <div class="btn-group-vertical flex-wrap animated fadeInUp" role="group" aria-label="Meeting Room Actions">
+            <button *ngIf="authService.isAdmin()" type="button" class="btn btn-primary mb-2 shadow" (click)="updateMeetingRoom(room._id)">Update</button>
+            <button *ngIf="authService.isAdmin()" type="button" class="btn btn-danger mb-2 shadow" (click)="deleteMeetingRoom(room._id)">Delete</button>
             <button type="button" class="btn btn-info shadow" (click)="consultRoom(room._id)">Consult</button>
           </div>
         </div>
@@ -37,5 +37,3 @@
     </ul>
   </nav>
 </div>
-
-

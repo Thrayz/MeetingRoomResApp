@@ -15,6 +15,7 @@ import { Error401Component } from '../errors/error401/error401.component';
 import { Error403Component } from '../errors/error403/error403.component';
 import { Error404Component } from '../errors/error404/error404.component';
 import { RoleGuardService as RoleGuard } from '../services/role-guard.service';
+import { ErrorComponent } from '../errors/error/error.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -24,6 +25,7 @@ const routes: Routes = [
   { path: 'reservations/update/:id', component: ReservationUpdateComponent },
   { path: 'reservations', component: ReservationListComponent },
   { path: 'reservationsByUser', component: ReservationListUserComponent},
+  { path: 'reservation-create/:id', component: ReservationCreateComponent },
   { 
     path: 'meeting-rooms/create', 
     component: MeetingRoomCreateComponent,
@@ -41,6 +43,7 @@ const routes: Routes = [
   { path: '401', component: Error401Component },
   { path: '403', component: Error403Component },
   { path: '404', component: Error404Component },
+  { path: 'error', component: ErrorComponent},
   { path: '', redirectTo: '/welcome', pathMatch: 'full' }, 
   { path: '**', redirectTo: '/404', pathMatch: 'full' } 
 ];

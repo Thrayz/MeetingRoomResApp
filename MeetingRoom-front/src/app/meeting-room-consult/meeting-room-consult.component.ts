@@ -7,6 +7,7 @@ import { ReservationService } from '../services/reservation.service';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import Tooltip from 'tooltip.js'; 
 import * as $ from 'jquery';
+import listPlugin from '@fullcalendar/list';
 
 @Component({
   selector: 'app-meeting-room-consult',
@@ -16,8 +17,8 @@ import * as $ from 'jquery';
 export class MeetingRoomConsultComponent implements OnInit {
   meetingRoom: MeetingRoom = {} as MeetingRoom;
   calendarOptions: CalendarOptions = {
-    initialView: 'dayGridMonth',
-    plugins: [dayGridPlugin],
+    initialView: window.innerWidth < 768 ? 'listWeek' : 'dayGridMonth',
+    plugins: [dayGridPlugin, listPlugin],
     events: [],
     displayEventTime: false,
     eventMouseEnter: function(info) {
@@ -58,5 +59,9 @@ export class MeetingRoomConsultComponent implements OnInit {
         }
       );
     }
+  }
+
+  reserveRoom(): void {
+    this.router.navigate(['/reservation-create', this.meetingRoom._id]);
   }
 }

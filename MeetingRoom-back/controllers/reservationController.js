@@ -177,14 +177,16 @@ exports.getReservationsByUserPaginated = async (req, res) => {
 exports.getReservationsByUserAndFilterPaginated = async (req, res) => {
     try {
         const { userId } = req.params;
-        const { meetingRoomId, date } = req.query;
-        const filter = { user: userId };
-        if (req.query.status === 'active') {
-            filter.reservationDate = { $gte: new Date() };
-          } else if (req.query.status === 'past') {
-            filter.reservationDate = { $lt: new Date() };
-          }
+        const { meetingRoomId, date, status, page = 1, limit = 10 } = req.query;
+        const filter = {};
+
+        if (userId) filter.user = userId;
         if (meetingRoomId) filter.meetingRoom = meetingRoomId;
+        if (status === 'active') {
+            filter.reservationDate = { $gte: new Date() };
+        } else if (status === 'past') {
+            filter.reservationDate = { $lt: new Date() };
+        }
         if (date) {
             const [year, month, day] = date.split('-');
             const startDate = new Date(Date.UTC(Number(year), Number(month) - 1, Number(day), 0, 0, 0));
@@ -194,15 +196,11 @@ exports.getReservationsByUserAndFilterPaginated = async (req, res) => {
                 $lte: endDate
             };
         }
-        let { page = 1, limit = 10 } = req.query;
-        
-        page = +page;
-        limit = +limit;
 
         const reservations = await Reservation.find(filter)
             .populate('meetingRoom', 'name')
-            .limit(limit)
-            .skip((page - 1) * limit)
+            .limit(+limit)
+            .skip((+page - 1) * +limit)
             .sort({ reservationDate: -1 })
             .exec();
         const count = await Reservation.countDocuments(filter);
@@ -215,9 +213,7 @@ exports.getReservationsByUserAndFilterPaginated = async (req, res) => {
     } catch (error) {
         res.status(400).json({ message: error.message });
     }
-
 };
-
 
 exports.reserveMeetingRoomById = async (req, res) => {
     try {

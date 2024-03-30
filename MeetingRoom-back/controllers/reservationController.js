@@ -191,10 +191,12 @@ exports.getReservationsByUserAndFilterPaginated = async (req, res) => {
             const [year, month, day] = date.split('-');
             const startDate = new Date(Date.UTC(Number(year), Number(month) - 1, Number(day), 0, 0, 0));
             const endDate = new Date(Date.UTC(Number(year), Number(month) - 1, Number(day), 23, 59, 59));
-            filter.reservationDate = {
-                $gte: startDate,
-                $lte: endDate
-            };
+            if (!isNaN(startDate.getTime()) && !isNaN(endDate.getTime())) {
+                filter.reservationDate = {
+                    $gte: startDate,
+                    $lte: endDate
+                };
+            }
         }
 
         const reservations = await Reservation.find(filter)

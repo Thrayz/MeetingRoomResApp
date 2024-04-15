@@ -39,7 +39,15 @@
         </thead>
         <tbody>
           <tr *ngFor="let reservation of reservations; index as i">
-            <td>{{ reservation.meetingRoom.name }}</td>
+            <td>
+  <ng-container *ngIf="reservation.meetingRoom.name; else otherValue">
+    {{ reservation.meetingRoom.name }}
+  </ng-container>
+  <ng-template #otherValue>
+    
+    Another Value
+  </ng-template>
+</td>
             <td>
               {{ reservation.reservationDate | date:'dd/MM/yyyy' }}
              
